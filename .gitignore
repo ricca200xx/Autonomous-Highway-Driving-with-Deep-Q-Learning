@@ -1,0 +1,23 @@
+# --- FILE DA IGNORARE ---
+
+# Ignora tutti i file PDF (incluso il report)
+*.pdf
+
+# Ignora i file di cache di Python (si rigenerano automaticamente)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignora le cartelle degli ambienti virtuali (se ne hai create)
+env/
+venv/
+.venv/
+
+# Ignora file di configurazione locali e variabili d'ambiente
+.env
+.vscode/
+.idea/
+
+# Ignora file di sistema (Mac/Windows)
+.DS_Store
+Thumbs.db
