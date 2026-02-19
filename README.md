@@ -184,15 +184,13 @@ The reward signal $r(s, a, s')$ is designed to incentivize safe and efficient dr
 $$r(s, a, s') = \begin{cases}
 r_{\text{velocity}} & \text{if } v > 0 \text{ and no collision} \\
 r_{\text{collision}} & \text{if collision occurs} \\
-r_{\text{velocity}} - r_{\text{lane\_change}} & \text{if lane change action is executed}
+r_{\text{velocity}} - r_{\text{lane-change}} & \text{if lane change action is executed}
 \end{cases}$$
 
 where:
 - $r_{\text{velocity}} > 0$ provides positive feedback for maintaining speed
 - $r_{\text{collision}} \ll 0$ is a large penalty (typically -1) for crashes
-- $r_{\text{lane\_change}} > 0$ is a small penalty for unnecessary lane changes
-
-## Baseline Comparison
+- $r_{\text{lane-change}} > 0$ is a small penalty for unnecessary lane changes
 
 ### Heuristic Agent
 
