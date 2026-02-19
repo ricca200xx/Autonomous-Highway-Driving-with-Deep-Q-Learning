@@ -31,7 +31,7 @@ class DQNNetwork(nn.Module):
         x = self.fc3(x)
         return x
 
-
+# dqna agent
 class DQNAgent:
     def __init__(self, state_size=25, action_size=5):
         self.state_size = state_size
@@ -48,7 +48,7 @@ class DQNAgent:
         self.q_network.load_state_dict(torch.load(path, map_location=device))
         self.q_network.eval()
 
-
+#evaluation
 def evaluate_agents(num_eval_episodes=20):
     env_name = "highway-v0"
     
