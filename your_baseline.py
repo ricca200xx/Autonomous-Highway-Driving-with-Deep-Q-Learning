@@ -1,6 +1,6 @@
 import numpy as np
 
-
+#heuristic agent
 class HeuristicAgent:
     
     def __init__(self):
@@ -99,7 +99,7 @@ class HeuristicAgent:
             return 3 
         else:
             return 1 
-    
+    #safty check lane
     def _check_lane_safe(self, obs, target_lane, side_vehicles):
 
         for i in range(1, 5):
