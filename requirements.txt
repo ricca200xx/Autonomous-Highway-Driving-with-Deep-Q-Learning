@@ -1,4 +1,4 @@
-# Autonomous Driving RL Project - Requirements
+# Autonomous Driving RL Project Requirements
 # Python 3.12.4
 numpy==2.4.1
 torch==2.10.0
