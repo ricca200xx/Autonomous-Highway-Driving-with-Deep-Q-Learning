@@ -84,7 +84,7 @@ class DQNAgent:
         
         self.update_frequency = 1000
         self.steps = 0
-    
+    #selection action 
     def select_action(self, state, training=True):
         if training and random.random() < self.epsilon:
             return random.randint(0, self.action_size - 1)
