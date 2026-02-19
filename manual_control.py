@@ -4,7 +4,7 @@ import numpy as np
 import time
 import json
 
-
+# manual policy
 def evaluate_manual_policy(num_eval_episodes=20):
     env_name = "highway-v0"
     
@@ -50,7 +50,7 @@ def evaluate_manual_policy(num_eval_episodes=20):
     
     return np.array(manual_rewards), np.array(manual_crashes)
 
-
+#execution
 if __name__ == "__main__":
     rewards, crashes = evaluate_manual_policy(num_eval_episodes=20)
     
