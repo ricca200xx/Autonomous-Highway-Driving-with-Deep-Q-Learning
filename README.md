@@ -80,23 +80,39 @@ The exploration rate decays as: $\epsilon_t = \max(\epsilon_{\min}, \epsilon_0 \
 
 ### Requirements
 
-- Python 3.12+
-- PyTorch (GPU-accelerated)
+- Python 3.11 or 3.12 (3.13 also works, except on Intel Macs)
+- PyTorch (runs on CPU; a CUDA GPU is used automatically if one is available, but it is not needed: the network is small and trains fine on a laptop CPU, including Macs)
 - Gymnasium and Highway-Env environments
-- NumPy, Matplotlib, Pandas
+- NumPy
+- Pygame (window for manual control)
+
+`requirements.txt` picks the right PyTorch and NumPy versions for your platform: Apple Silicon Macs, Linux and Windows get PyTorch 2.10 with NumPy 2, while Intel Macs get PyTorch 2.2.2 with NumPy 1.26, the last versions PyTorch publishes for them.
 
 ### Setup Instructions
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/ricca200xx/autonomous-highway-dqn.git
-   cd autonomous-highway-dqn
+   git clone https://github.com/ricca200xx/Autonomous-Highway-Driving-with-Deep-Q-Learning.git
+   cd Autonomous-Highway-Driving-with-Deep-Q-Learning
    ```
 
-2. Install dependencies:
+2. Create a virtual environment and install dependencies.
+
+   macOS / Linux:
    ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
    pip install -r requirements.txt
    ```
+
+   Windows (PowerShell):
+   ```powershell
+   py -m venv .venv
+   .venv\Scripts\Activate.ps1
+   pip install -r requirements.txt
+   ```
+
+   On macOS, `python3` from [python.org](https://www.python.org/downloads/macos/) or Homebrew (`brew install python@3.12`) both work.
 
 ## Usage
 
@@ -233,7 +249,7 @@ The substantial crash rate reduction and reward improvement demonstrate the effe
 - **Gymnasium**: Standardized environment interface
 - **Highway-Env**: Multi-lane highway driving simulation
 - **NumPy**: Numerical computations
-- **Pandas**: Data manipulation and statistics
+- **Pygame**: Rendering and keyboard input for manual control
 
 See [requirements.txt](requirements.txt) for complete version specifications.
 

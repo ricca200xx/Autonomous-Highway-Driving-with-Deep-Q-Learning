@@ -1,11 +1,17 @@
 # Autonomous Driving RL Project Requirements
-# Python 3.12.4
-numpy==2.4.1
-torch==2.10.0
+# Tested for macOS (Apple Silicon and Intel), Linux and Windows.
+# Python 3.11 or 3.12 (3.13 works on Apple Silicon, Linux and Windows).
+#
+# Only the packages imported by the code are listed here.
+# highway-env pulls in matplotlib, pandas and scipy on its own.
+
 gymnasium==1.2.3
 highway-env==1.10.2
-matplotlib==3.10.8
 pygame==2.6.1
-pandas==3.0.0
-scipy==1.17.0
-pillow==12.1.0
+
+# PyTorch stopped publishing Intel Mac (x86_64) wheels after 2.2.2,
+# and torch 2.2.x needs NumPy 1.x. Every other platform uses the newer versions.
+torch==2.10.0; sys_platform != "darwin" or platform_machine == "arm64"
+numpy==2.4.1; sys_platform != "darwin" or platform_machine == "arm64"
+torch==2.2.2; sys_platform == "darwin" and platform_machine == "x86_64"
+numpy==1.26.4; sys_platform == "darwin" and platform_machine == "x86_64"
