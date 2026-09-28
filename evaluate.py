@@ -5,7 +5,13 @@ import torch
 import torch.nn as nn
 import random
 import json
+from pathlib import Path
 from your_baseline import HeuristicAgent
+
+# paths relative to this file, not to the working directory
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_PATH = BASE_DIR / "model_weights.pth"
+RESULTS_PATH = BASE_DIR / "evaluate_results.json"
 
 
 # set the seed 
@@ -14,7 +20,12 @@ random.seed(0)
 torch.manual_seed(0)
 
 # device
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cpu")
 
 # DQN
 class DQNNetwork(nn.Module):
@@ -44,7 +55,7 @@ class DQNAgent:
             q_values = self.q_network(state_tensor)
         return q_values.argmax(dim=1).item()
     
-    def load(self, path='model_weights.pth'):
+    def load(self, path=MODEL_PATH):
         self.q_network.load_state_dict(torch.load(path, map_location=device))
         self.q_network.eval()
 
@@ -58,7 +69,7 @@ def evaluate_agents(num_eval_episodes=20):
     
     heuristic_agent = HeuristicAgent()
     dqn_agent = DQNAgent(state_size=25, action_size=5)
-    dqn_agent.load('model_weights.pth')
+    dqn_agent.load(MODEL_PATH)
     print("Agents loaded successfully!\n")
     
     heuristic_rewards = []
@@ -165,10 +176,10 @@ def evaluate_agents(num_eval_episodes=20):
         'dqn_crash_rate': float(dqn_crash_rate),
     }
     
-    with open('evaluate_results.json', 'w') as f:
+    with open(RESULTS_PATH, 'w') as f:
         json.dump(results_data, f, indent=2)
     
-    print("\nResults saved to: evaluate_results.json\n")
+    print(f"\nResults saved to: {RESULTS_PATH}\n")
 
 
 if __name__ == "__main__":
