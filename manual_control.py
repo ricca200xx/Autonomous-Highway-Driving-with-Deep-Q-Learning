@@ -3,6 +3,10 @@ import highway_env
 import numpy as np
 import time
 import json
+from pathlib import Path
+
+# paths relative to this file, not to the working directory
+RESULTS_PATH = Path(__file__).resolve().parent / "manual_policy_results.json"
 
 # manual policy
 def evaluate_manual_policy(num_eval_episodes=20):
@@ -70,8 +74,8 @@ if __name__ == "__main__":
         'manual_crash_rate': manual_crash_rate,
     }
     
-    with open('manual_policy_results.json', 'w') as f:
+    with open(RESULTS_PATH, 'w') as f:
         json.dump(results_data, f, indent=2)
     
-    print("\nResults saved to: manual_policy_results.json")
+    print(f"\nResults saved to: {RESULTS_PATH}")
 

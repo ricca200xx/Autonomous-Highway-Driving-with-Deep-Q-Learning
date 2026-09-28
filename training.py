@@ -6,6 +6,11 @@ import torch.nn as nn
 import torch.optim as optim
 import random
 from collections import deque
+from pathlib import Path
+
+# paths relative to this file, not to the working directory
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_PATH = BASE_DIR / "model_weights.pth"
 
 
 # set seed
@@ -20,7 +25,12 @@ env = gymnasium.make(env_name,
                      config={'action': {'type': 'DiscreteMetaAction'}, 'duration': 40, "vehicles_count": 50})
 
 # device
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cpu")
 
 # DQN architecture
 class DQNNetwork(nn.Module):
@@ -127,10 +137,10 @@ class DQNAgent:
     def update_epsilon(self):
         self.epsilon = max(self.epsilon_min, self.epsilon * self.epsilon_decay)
     
-    def save(self, path='model_weights.pth'):
+    def save(self, path=MODEL_PATH):
         torch.save(self.q_network.state_dict(), path)
     
-    def load(self, path='model_weights.pth'):
+    def load(self, path=MODEL_PATH):
         self.q_network.load_state_dict(torch.load(path, map_location=device))
         self.target_network.load_state_dict(self.q_network.state_dict())
 
@@ -174,6 +184,6 @@ for t in range(MAX_STEPS):
 env.close()
 
 # Save model weights
-agent.save('model_weights.pth')
-print("Training completed! Model saved to model_weights.pth")
+agent.save(MODEL_PATH)
+print(f"Training completed! Model saved to {MODEL_PATH}")
 
